@@ -21,13 +21,19 @@ public class SunDrawable extends WeatherDrawable {
     private Drawable light;
     private Drawable light2;
 
-    SunDrawable(Context context){
+    public SunDrawable(Context context){
         light = context.getResources().getDrawable(R.drawable.light);
         light2 = context.getResources().getDrawable(R.drawable.light2);
     }
 
     @Override
     protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
-        weatherItems.add(new Sun());
+        Sun sun = new Sun(light, light2);
+
+        int r = (int) (338f * rect.width() / 482 / 2);
+        int t = (int) (rect.top + 30f * rect.height() / 400);
+        sun.setBounds(rect.centerX() - r, t, rect.centerX() + r, t + 2 * r);
+
+        weatherItems.add(sun);
     }
 }

@@ -1,12 +1,13 @@
-package com.mlog.weather.anim.drawable;
+package com.mlog.weather.anim.v2.drawable;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 import com.example.cjl.weatheranim_v2.R;
-import com.mlog.weather.anim.weatherItem.IWeatherItem;
-import com.mlog.weather.anim.weatherItem.Sun;
+import com.mlog.weather.anim.IWeatherItem;
+import com.mlog.weather.anim.WeatherDrawable;
+import com.mlog.weather.anim.v2.weatherItem.Sun;
 
 import java.util.List;
 

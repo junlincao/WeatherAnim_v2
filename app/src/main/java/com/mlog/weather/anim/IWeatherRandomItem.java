@@ -1,6 +1,4 @@
-package com.mlog.weather.anim.drawable;
-
-import com.mlog.weather.anim.weatherItem.IWeatherItem;
+package com.mlog.weather.anim;
 
 /**
  * 自动生成随机天气元素
@@ -8,7 +6,7 @@ import com.mlog.weather.anim.weatherItem.IWeatherItem;
  * @author CJL
  * @since 2015-09-18
  */
-interface IWeatherRandomItem {
+public interface IWeatherRandomItem {
     /**
      * 产生时间间隔
      *

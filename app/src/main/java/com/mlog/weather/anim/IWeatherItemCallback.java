@@ -1,4 +1,4 @@
-package com.mlog.weather.anim.weatherItem;
+package com.mlog.weather.anim;
 
 /**
  * 动画单周期结束回调

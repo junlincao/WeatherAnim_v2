@@ -1,4 +1,4 @@
-package com.mlog.weather.anim.drawable;
+package com.mlog.weather.anim;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 
-import com.mlog.weather.anim.weatherItem.IWeatherItem;
+import com.mlog.weather.anim.IWeatherItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,8 +1,6 @@
-package com.mlog.weather.anim.weatherItem;
+package com.mlog.weather.anim;
 
 import android.graphics.Rect;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Interpolator;
 
 /**
  * 处理IWeatherItem通用方法
@@ -16,7 +14,7 @@ public abstract class SimpleWeatherItem implements IWeatherItem {
 
     protected Rect mBounds = new Rect();
 
-    protected Interpolator mInterpolator = new AccelerateInterpolator();
+//    protected Interpolator mInterpolator = new AccelerateInterpolator();
 
     /**
      * 动画开始时间
@@ -61,10 +59,4 @@ public abstract class SimpleWeatherItem implements IWeatherItem {
         return mStatus;
     }
 
-    @Override
-    public void setInterpolator(Interpolator intercepter) {
-        if (intercepter != null) {
-            mInterpolator = intercepter;
-        }
-    }
 }

@@ -6,8 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.mlog.weather.anim.drawable.WeatherDrawable;
-
 /**
  * 天气动画View，添加的背景若是天气动画Drawable，则自动启动动画并且View移除时自动关闭动画
  *

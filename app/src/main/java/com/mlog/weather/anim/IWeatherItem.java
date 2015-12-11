@@ -1,9 +1,8 @@
-package com.mlog.weather.anim.weatherItem;
+package com.mlog.weather.anim;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.IntDef;
-import android.view.animation.Interpolator;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -38,5 +37,5 @@ public interface IWeatherItem {
     @WeatherItemStatus
     int getStatus();
 
-    void setInterpolator(Interpolator intercepter);
+//    void setInterpolator(Interpolator intercepter);
 }

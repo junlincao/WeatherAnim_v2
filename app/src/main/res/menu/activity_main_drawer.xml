@@ -8,7 +8,7 @@
 
         <item
             android:id="@+id/cloudy"
-            android:title="多云" />
+            android:title="多云&amp;阴天" />
 
     </group>
 </menu>

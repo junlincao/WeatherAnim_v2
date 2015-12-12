@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mlog.weather.anim.WeatherAnimView
+        android:id="@+id/weather_img"
+        android:layout_width="match_parent"
+        android:background="#aa000000"
+        android:layout_height="400dp" />
+
+
+    <RadioGroup
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/storm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="暴雪&amp;大雪" />
+
+        <RadioButton
+            android:id="@+id/middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="中雪&amp;阵雪" />
+
+        <RadioButton
+            android:id="@+id/light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小雪" />
+
+        <RadioButton
+            android:id="@+id/with_rain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雨夹雪" />
+
+    </RadioGroup>
+</RelativeLayout>

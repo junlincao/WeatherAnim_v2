@@ -108,17 +108,24 @@ public class Cloud extends SimpleWeatherItem {
     }
 
     private void setTopBounds() {
-        //TODO
+        int defW1 = mCloud1.getIntrinsicWidth();
+        int defH1 = mCloud1.getIntrinsicHeight();
+        int defW2 = mCloud2.getIntrinsicWidth();
+        int defH2 = mCloud2.getIntrinsicHeight();
+
+        float scale = 217f * mBounds.width() / 520 / defW2;
+        mRect1.set(mBounds.left, (int) (mBounds.bottom - defH2 * scale), mBounds.left + (int) (defW2 * scale), mBounds.bottom);
+
+        scale = 274f * mBounds.width() / 520 / defW1;
+        int l2 = mBounds.left + (int) (172f * mBounds.width() / 520);
+        mRect2.set(l2, mBounds.top, (int) (l2 + scale * defW1), mBounds.bottom);
+
+        scale = 196f * mBounds.width() / 520 / defW1;
+        mRect3.set((int) (mBounds.right - scale * defW1), (int) (mBounds.bottom - scale * defH1), mBounds.right, mBounds.bottom);
     }
 
     private void setMiddleBounds() {
-        int defW1 = mCloud1.getIntrinsicWidth();
-//        int defH1 = mCloud1.getIntrinsicHeight();
-//        int defW2 = mCloud2.getIntrinsicWidth();
-        int defH2 = mCloud2.getIntrinsicHeight();
-
         mRect1.set(mBounds.left, mBounds.top, mBounds.left + (int) (385f * mBounds.width() / 547), mBounds.bottom);
-
         mRect2.set(mBounds.left + (int) (156f * mBounds.width() / 547), (int) (mBounds.bottom - 75f * mBounds.height() / 133), mBounds.right, mBounds.bottom);
     }
 
@@ -161,11 +168,41 @@ public class Cloud extends SimpleWeatherItem {
     }
 
     private void drawTypeTop(Canvas canvas, Paint paint, long time) {
-        //TODO
+        int t = (int) ((time - getStartTime() + MOVE_DELAY * 6) % ANIM_DURATION);
+
+        int moveX = (int) (mMoveDistance * mInterpolator.getInterpolation(t * 1f / ANIM_DURATION));
+
+        canvas.save();
+        mRevertMatrix.reset();
+        mRevertMatrix.postScale(-1, 1);
+        mRevertMatrix.postTranslate(mRect1.width() + mBounds.left * 2 + moveX * 2, 0);
+        canvas.concat(mRevertMatrix);
+        mCloud2.setAlpha(229);
+        mCloud2.setBounds(mRect1.left + moveX, mRect1.top, mRect1.right + moveX, mRect1.bottom);
+        mCloud2.draw(canvas);
+        canvas.restore();
+
+        t = (int) ((time - getStartTime() + MOVE_DELAY * 5) % ANIM_DURATION);
+        moveX = (int) (mMoveDistance * mInterpolator.getInterpolation(t * 1f / ANIM_DURATION));
+        mCloud1.setBounds(mRect2.left + moveX, mRect2.top, mRect2.right + moveX, mRect2.bottom);
+        mCloud1.setAlpha(135);
+        mCloud1.draw(canvas);
+
+        t = (int) ((time - getStartTime() + MOVE_DELAY * 4) % ANIM_DURATION);
+        moveX = (int) (mMoveDistance * mInterpolator.getInterpolation(t * 1f / ANIM_DURATION));
+        canvas.save();
+        mRevertMatrix.reset();
+        mRevertMatrix.postScale(-1, 1);
+        mRevertMatrix.postTranslate(mRect3.width() + mRect3.left * 2 + moveX * 2, 0);
+        canvas.concat(mRevertMatrix);
+        mCloud1.setBounds(mRect3.left + moveX, mRect3.top, mRect3.right + moveX, mRect3.bottom);
+        mCloud1.setAlpha(255);
+        mCloud1.draw(canvas);
+        canvas.restore();
     }
 
     private void drawTypeMiddle(Canvas canvas, Paint paint, long time) {
-        int t = (int) ((time + MOVE_DELAY * 2 - getStartTime()) % ANIM_DURATION);
+        int t = (int) ((time + MOVE_DELAY * 3 - getStartTime()) % ANIM_DURATION);
         int moveX = (int) (mMoveDistance * mInterpolator.getInterpolation(t * 1f / ANIM_DURATION));
 
         mCloud1.setBounds(mRect1.left + moveX, mRect1.top, mRect1.right + moveX, mRect1.bottom);
@@ -173,7 +210,7 @@ public class Cloud extends SimpleWeatherItem {
         mCloud1.draw(canvas);
 
 
-        t = (int) ((time + MOVE_DELAY - getStartTime()) % ANIM_DURATION);
+        t = (int) ((time + MOVE_DELAY * 2 - getStartTime()) % ANIM_DURATION);
         moveX = (int) (mMoveDistance * mInterpolator.getInterpolation(t * 1f / ANIM_DURATION));
 
         mCloud2.setBounds(mRect2.left + moveX, mRect2.top, mRect2.right + moveX, mRect2.bottom);

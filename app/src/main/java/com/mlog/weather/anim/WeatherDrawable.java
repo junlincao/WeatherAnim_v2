@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 
-import com.mlog.weather.anim.IWeatherItem;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -41,7 +39,7 @@ public abstract class WeatherDrawable extends Drawable {
      * 除非调用stopAnimation，否则不会停止
      */
     public void startAnimation() {
-        if (mIsRunning || mWeatherItems.size() == 0) {
+        if (mIsRunning || (mWeatherItems.size() == 0 && mRandomItems.size() == 0)) {
             return;
         }
 
@@ -112,8 +110,7 @@ public abstract class WeatherDrawable extends Drawable {
             IWeatherItem wi = mWeatherItems.get(i);
             wi.onDraw(canvas, mPaint, time);
         }
-        for (int i = 0, randomSize = mWeatherRandomItems.size(); i < randomSize; i++) {
-            IWeatherItem wi = mWeatherRandomItems.get(i);
+        for (IWeatherItem wi : mWeatherRandomItems) {
             if (wi.getStatus() == IWeatherItem.STATUS_RUNNING) {
                 wi.onDraw(canvas, mPaint, time);
             }
@@ -157,7 +154,7 @@ public abstract class WeatherDrawable extends Drawable {
      * @param weatherItems 组件集合
      * @param rect         Drawable Bounds
      */
-    protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect){
+    protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
 
     }
 

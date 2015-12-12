@@ -10,5 +10,14 @@
             android:id="@+id/cloudy"
             android:title="多云&amp;阴天" />
 
+
+        <item
+            android:id="@+id/rain"
+            android:title="雨" />
+
+
+        <item
+            android:id="@+id/snow"
+            android:title="雪" />
     </group>
 </menu>

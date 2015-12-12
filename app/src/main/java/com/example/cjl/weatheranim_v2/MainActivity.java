@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MenuItem mi = navigationView.getMenu().findItem(R.id.cloudy);
+        MenuItem mi = navigationView.getMenu().findItem(R.id.rain);
         onNavigationItemSelected(mi);
-        navigationView.setCheckedItem(R.id.cloudy);
+        navigationView.setCheckedItem(R.id.rain);
     }
 
     @Override
@@ -80,6 +80,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.cloudy:
                 changeFragment(CloudyFragment.class);
+                break;
+            case R.id.rain:
+                changeFragment(RainFragment.class);
+                break;
+            case R.id.snow:
+                changeFragment(SnowFragment.class);
                 break;
             default:
                 Toast.makeText(this, "实现中...", Toast.LENGTH_SHORT).show();

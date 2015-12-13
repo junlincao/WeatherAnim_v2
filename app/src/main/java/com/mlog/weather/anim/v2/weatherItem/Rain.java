@@ -14,9 +14,9 @@ import com.mlog.weather.anim.SimpleWeatherItem;
  */
 public class Rain extends SimpleWeatherItem {
 
-    static final int ANIM_DURATION = 2000;
+    static final int ANIM_DURATION = 1000;
 
-    private Interpolator mAlphaInt = new Interpolator() {
+    private static Interpolator mAlphaInt = new Interpolator() {
         final int ALPHA_DURATION = 250;
 
         @Override
@@ -28,26 +28,14 @@ public class Rain extends SimpleWeatherItem {
         }
     };
 
-    private Interpolator mLengthInt = new Interpolator() {
-        @Override
-        public float getInterpolation(float input) {
-            if (input > 1) {
-                return 1;
-            }
-            return input;
-        }
-    };
-
-    private Interpolator mYInt = PathInterpolatorCompat.create(0.587f, 0, 0.788f, 1);
+    private static Interpolator mYInt = PathInterpolatorCompat.create(0.587f, 0, 0.788f, 1);
 
     private int mMinLen;
     private int mMaxLen;
     private int mXShift;
-    private float angle;
 
     public void setXShift(int xShift) {
         this.mXShift = xShift;
-        angle = (float) (90 - Math.toDegrees(Math.atan2(mBounds.height() + mMinLen, mXShift)));
     }
 
     public void setLen(int minLen, int maxLen) {
@@ -58,7 +46,6 @@ public class Rain extends SimpleWeatherItem {
     @Override
     public void setBounds(int left, int top, int right, int bottom) {
         super.setBounds(left, top, right, bottom);
-        angle = (float) (90 - Math.toDegrees(Math.atan2(mBounds.height(), mXShift)));
     }
 
     @Override
@@ -71,22 +58,26 @@ public class Rain extends SimpleWeatherItem {
 
         paint.setColor(Color.WHITE);
         paint.setAlpha((int) (255 * 0.2f * mAlphaInt.getInterpolation(pg)));
-
-        int len = (int) (mMinLen + (mMaxLen - mMinLen) * mLengthInt.getInterpolation(pg));
-        int top = (int) (-mBounds.height() / 2 + (mBounds.height() * 2) * mYInt.getInterpolation(pg));
-        int left = (int) (mBounds.left - mXShift * mYInt.getInterpolation(pg));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(mBounds.width());
 
         if (mBounds.width() > 1) {
             paint.setStrokeCap(Paint.Cap.ROUND);
         }
 
+        float ypg = mYInt.getInterpolation(pg);
+        float len = (int) (mMinLen + (mMaxLen - mMinLen) * ypg);
+        float ty = (int) (-mMinLen + (mBounds.height() + mMinLen) * ypg);
+
         if (mXShift == 0) {
-            canvas.drawLine(mBounds.left, top, mBounds.right, top + len, paint);
+            float x = mBounds.centerX();
+            canvas.drawLine(x, ty, x, ty + len, paint);
         } else {
-            canvas.save();
-            canvas.rotate(angle, top + mBounds.width() / 2, top);
-            canvas.drawLine(left, top, left + mBounds.width(), top + len, paint);
-            canvas.restore();
+            float tx = (int) (mBounds.left - mXShift * ypg);
+            float bx = (float) (tx - len * mXShift / Math.sqrt(mXShift * mXShift + mBounds.height() * mBounds.height()));
+            float by = (float) (ty + len * mBounds.height() / Math.sqrt(mXShift * mXShift + mBounds.height() * mBounds.height()));
+
+            canvas.drawLine(bx, by, tx, ty, paint);
         }
     }
 }

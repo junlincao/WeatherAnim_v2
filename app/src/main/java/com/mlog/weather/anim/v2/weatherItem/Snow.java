@@ -27,6 +27,7 @@ public class Snow extends SimpleWeatherItem {
             stop();
             return;
         }
+        paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
         if (t < ALPHA_CENTER) {
             paint.setAlpha((int) (255f * t / ALPHA_CENTER));

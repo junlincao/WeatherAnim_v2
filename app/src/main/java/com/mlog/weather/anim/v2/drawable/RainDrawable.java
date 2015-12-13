@@ -44,7 +44,7 @@ public class RainDrawable extends WeatherDrawable {
     protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
         final float scale = rect.width() / 640f;
         final int xShift = (int) (200 * scale);
-        final int rainWidth = rect.width() + xShift / 2;
+        final int rainWidth = rect.width() + xShift;
         final int minLen = (int) (50 * scale);
         final int maxLen = (int) (120 * scale);
 
@@ -58,7 +58,7 @@ public class RainDrawable extends WeatherDrawable {
             @Override
             public IWeatherItem getRandomWeatherItem() {
                 Rain rain = new Rain();
-                int l = xShift / 2 + random.nextInt(rainWidth);
+                int l = random.nextInt(rainWidth);
                 rain.setXShift(xShift);
                 rain.setBounds(l, rect.top, l + 1, rect.bottom);
                 rain.setLen(minLen, maxLen);

@@ -21,12 +21,9 @@ public class FogFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sunny_weather_view, container, false);
+        View view = inflater.inflate(R.layout.fog_weather_view, container, false);
 
         animView = (WeatherAnimView) view.findViewById(R.id.weather_img);
-
-        RadioGroup rg = (RadioGroup) view.findViewById(R.id.type);
-        rg.setVisibility(View.GONE);
 
         animView.setImageDrawable(new FogDrawable(getContext()));
 

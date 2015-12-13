@@ -48,7 +48,7 @@ public class RainDrawable extends WeatherDrawable {
     public RainDrawable(Context context, @RainType int rainType, boolean isNight) {
         this.mRainType = rainType;
 
-        mountain = context.getResources().getDrawable(isNight ? R.drawable.bg03n : R.drawable.bg03);
+        mountain = context.getResources().getDrawable(isNight ? R.drawable.v2_anim_bg03n : R.drawable.v2_anim_bg03);
     }
 
     @Override

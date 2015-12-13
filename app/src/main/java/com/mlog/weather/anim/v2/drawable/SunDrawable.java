@@ -25,9 +25,9 @@ public class SunDrawable extends WeatherDrawable {
     private Drawable mountain;
 
     public SunDrawable(Context context){
-        light = context.getResources().getDrawable(R.drawable.light);
-        light2 = context.getResources().getDrawable(R.drawable.light2);
-        mountain = context.getResources().getDrawable(R.drawable.bg01);
+        light = context.getResources().getDrawable(R.drawable.v2_anim_light);
+        light2 = context.getResources().getDrawable(R.drawable.v2_anim_light2);
+        mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg01);
     }
 
     @Override

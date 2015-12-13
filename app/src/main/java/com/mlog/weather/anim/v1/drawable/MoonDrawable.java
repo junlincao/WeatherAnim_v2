@@ -1,7 +1,4 @@
-package com.mlog.weather.anim.v2.drawable;
-
-import java.util.List;
-import java.util.Random;
+package com.mlog.weather.anim.v1.drawable;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -11,9 +8,11 @@ import com.example.cjl.weatheranim_v2.R;
 import com.mlog.weather.anim.IWeatherItem;
 import com.mlog.weather.anim.IWeatherRandomItem;
 import com.mlog.weather.anim.WeatherDrawable;
-import com.mlog.weather.anim.v2.weatherItem.Moon;
-import com.mlog.weather.anim.v2.weatherItem.MountainBg;
-import com.mlog.weather.anim.v2.weatherItem.Star;
+import com.mlog.weather.anim.v1.weatherItem.Moon;
+import com.mlog.weather.anim.v1.weatherItem.Star;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * 晴夜晚
@@ -24,26 +23,15 @@ import com.mlog.weather.anim.v2.weatherItem.Star;
 public class MoonDrawable extends WeatherDrawable {
 
     Drawable mMoonDrawable;
-    Drawable mountain;
 
     public MoonDrawable(Context context) {
-        mMoonDrawable = context.getResources().getDrawable(R.drawable.v2_anim_moon);
-        mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg01n);
+        mMoonDrawable = context.getResources().getDrawable(R.drawable.moon);
     }
 
     @Override
     protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
-        MountainBg mountainBg = new MountainBg(mountain);
-        mountainBg.setBounds(rect.left, rect.top, rect.right, rect.bottom);
-        weatherItems.add(mountainBg);
-
-
         Moon moon = new Moon(mMoonDrawable);
-
-        int hmw = (int) (203f * rect.width() / 482 / 2);
-
-        moon.setBounds(rect.centerX() - hmw, rect.centerY() - hmw, rect.centerX() + hmw, rect.centerY() + hmw);
-        moon.setMoveDistance(hmw / 4f);
+        moon.setBounds(rect.left, rect.top, rect.right, rect.bottom);
         weatherItems.add(moon);
     }
 
@@ -56,7 +44,7 @@ public class MoonDrawable extends WeatherDrawable {
         IWeatherRandomItem iri = new IWeatherRandomItem() {
             @Override
             public int getInterval() {
-                return 700;
+                return 1200;
             }
 
             @Override

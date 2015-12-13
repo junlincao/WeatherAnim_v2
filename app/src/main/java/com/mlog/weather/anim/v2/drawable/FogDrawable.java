@@ -21,7 +21,7 @@ public class FogDrawable extends WeatherDrawable {
     private Drawable mountain;
 
     public FogDrawable(Context context) {
-        mountain = context.getResources().getDrawable(R.drawable.bg05);
+        mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg05);
     }
 
     @Override

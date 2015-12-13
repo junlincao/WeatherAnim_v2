@@ -47,19 +47,19 @@ public class CloudyDrawable extends WeatherDrawable {
     private int mType;
 
     public CloudyDrawable(Context context, @CloudType int type) {
-        cloud1 = context.getResources().getDrawable(R.drawable.cloud_1);
-        cloud2 = context.getResources().getDrawable(R.drawable.cloud_2);
+        cloud1 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_1);
+        cloud2 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_2);
         this.mType = type;
 
         if (mType == TYPE_DAY) {
-            mountain = context.getResources().getDrawable(R.drawable.bg01);
-            sun1 = context.getResources().getDrawable(R.drawable.light);
-            sun2 = context.getResources().getDrawable(R.drawable.light2);
+            mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg01);
+            sun1 = context.getResources().getDrawable(R.drawable.v2_anim_light);
+            sun2 = context.getResources().getDrawable(R.drawable.v2_anim_light2);
         } else if (mType == TYPE_NIGHT) {
-            mountain = context.getResources().getDrawable(R.drawable.bg01n);
-            moon = context.getResources().getDrawable(R.drawable.moon);
+            mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg01n);
+            moon = context.getResources().getDrawable(R.drawable.v2_anim_moon);
         } else {
-            mountain = context.getResources().getDrawable(R.drawable.bg02);
+            mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg02);
         }
     }
 

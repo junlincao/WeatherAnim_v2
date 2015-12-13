@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity
         setTitle(item.getTitle());
 
         switch (item.getItemId()) {
+            case R.id.old:
+                changeFragment(OldFragment.class);
+                break;
             case R.id.sun:
                 changeFragment(SunnyFragment.class);
                 break;

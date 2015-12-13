@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/old"
+            android:title="v1旧版" />
+
         <item
             android:id="@+id/sun"
             android:title="晴天" />

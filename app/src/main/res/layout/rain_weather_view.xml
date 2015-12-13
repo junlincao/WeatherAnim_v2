@@ -10,43 +10,60 @@
         android:background="#aa000000" />
 
 
-    <RadioGroup
-        android:id="@+id/type"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="40dp">
 
-        <RadioButton
-            android:id="@+id/storm"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/type"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="暴雨" />
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/heavy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="大雨" />
+            <RadioButton
+                android:id="@+id/storm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暴雨" />
 
-        <RadioButton
-            android:id="@+id/middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="中雨" />
+            <RadioButton
+                android:id="@+id/heavy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:checked="true"
+                android:text="大雨" />
 
-        <RadioButton
-            android:id="@+id/light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="小雨" />
+            <RadioButton
+                android:id="@+id/middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="中雨" />
 
-        <RadioButton
-            android:id="@+id/thunder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="雷阵雨" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="小雨" />
+
+            <RadioButton
+                android:id="@+id/thunder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="雷阵雨" />
+
+            <RadioButton
+                android:id="@+id/frozen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="冻雨" />
+        </RadioGroup>
+    </HorizontalScrollView>
 </RelativeLayout>

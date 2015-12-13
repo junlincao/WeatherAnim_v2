@@ -24,7 +24,7 @@ import java.util.Random;
  */
 public class RainDrawable extends WeatherDrawable {
 
-    @IntDef({TYPE_STORM, TYPE_HEAVY, TYPE_MIDDLE, TYPE_LIGHT, TYPE_THUNDER, TYPE_THUNDER_HAIL})
+    @IntDef({TYPE_STORM, TYPE_HEAVY, TYPE_MIDDLE, TYPE_LIGHT, TYPE_THUNDER, TYPE_THUNDER_HAIL, TYPE_FROZEN})
     @Retention(RetentionPolicy.SOURCE)
     @interface RainType {
 
@@ -36,9 +36,10 @@ public class RainDrawable extends WeatherDrawable {
     public static final int TYPE_LIGHT = 3; // 小雨
     public static final int TYPE_THUNDER = 4; // 雷阵雨
     public static final int TYPE_THUNDER_HAIL = 5; // 雷阵雨伴有冰雹
+    public static final int TYPE_FROZEN = 6; // 冻雨
 
     // TYPE_STORM, TYPE_HEAVY ， TYPE_MIDDLE， TYPE_LIGHT对应的出现间隔时间
-    static final int[] RAIN_INTERVAL = new int[]{30, 50, 75, 100, 50, 75};
+    static final int[] RAIN_INTERVAL = new int[]{30, 50, 75, 100, 50, 75, 100};
 
     @RainType
     private int mRainType = TYPE_HEAVY;
@@ -70,7 +71,7 @@ public class RainDrawable extends WeatherDrawable {
     @Override
     protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
         final float scale = rect.width() / 640f;
-        final int xShift = (int) (200 * scale);
+        final int xShift = mRainType == TYPE_FROZEN ? 0 : (int) (200 * scale);
         final int rainWidth = rect.width() + xShift;
         final int minLen = (int) (50 * scale);
         final int maxLen = (int) (120 * scale);

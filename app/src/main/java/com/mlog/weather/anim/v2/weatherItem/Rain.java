@@ -57,7 +57,7 @@ public class Rain extends SimpleWeatherItem {
         float pg = (time - getStartTime()) * 1f / ANIM_DURATION;
 
         paint.setColor(Color.WHITE);
-        paint.setAlpha((int) (255 * 0.2f * mAlphaInt.getInterpolation(pg)));
+        paint.setAlpha((int) (128 * mAlphaInt.getInterpolation(pg)));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(mBounds.width());
 

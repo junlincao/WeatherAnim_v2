@@ -11,6 +11,7 @@ import com.mlog.weather.anim.IWeatherItem;
 import com.mlog.weather.anim.WeatherDrawable;
 import com.mlog.weather.anim.v2.weatherItem.Cloud;
 import com.mlog.weather.anim.v2.weatherItem.Moon;
+import com.mlog.weather.anim.v2.weatherItem.MountainBg;
 import com.mlog.weather.anim.v2.weatherItem.Sun;
 
 import java.lang.annotation.Retention;
@@ -24,7 +25,6 @@ import java.util.List;
  * @since 2015-12-11
  */
 public class CloudyDrawable extends WeatherDrawable {
-
     @IntDef({TYPE_DAY, TYPE_NIGHT, TYPE_CLOUDY})
     @Retention(RetentionPolicy.SOURCE)
     public @interface CloudType {
@@ -33,6 +33,8 @@ public class CloudyDrawable extends WeatherDrawable {
     public static final int TYPE_DAY = 0;
     public static final int TYPE_NIGHT = 1;
     public static final int TYPE_CLOUDY = 2;
+
+    private Drawable mountain;
 
     private Drawable cloud1;
     private Drawable cloud2;
@@ -50,15 +52,23 @@ public class CloudyDrawable extends WeatherDrawable {
         this.mType = type;
 
         if (mType == TYPE_DAY) {
+            mountain = context.getResources().getDrawable(R.drawable.bg01);
             sun1 = context.getResources().getDrawable(R.drawable.light);
             sun2 = context.getResources().getDrawable(R.drawable.light2);
         } else if (mType == TYPE_NIGHT) {
+            mountain = context.getResources().getDrawable(R.drawable.bg01n);
             moon = context.getResources().getDrawable(R.drawable.moon);
+        } else {
+            mountain = context.getResources().getDrawable(R.drawable.bg02);
         }
     }
 
     @Override
     protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
+        MountainBg mountainBg = new MountainBg(mountain);
+        mountainBg.setBounds(rect.left, rect.top, rect.right, rect.bottom);
+        weatherItems.add(mountainBg);
+
         if (mType == TYPE_DAY || mType == TYPE_NIGHT) {
             int color = mType == TYPE_NIGHT ? 0xff87b4c6 : Color.WHITE;
 

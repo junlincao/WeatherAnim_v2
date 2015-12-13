@@ -37,13 +37,13 @@ public class SnowFragment extends Fragment implements RadioGroup.OnCheckedChange
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.storm) {
-            animView.setImageDrawable(new SnowDrawable(SnowDrawable.TYPE_STORM));
+            animView.setImageDrawable(new SnowDrawable(getContext(), SnowDrawable.TYPE_STORM, false));
         } else if (checkedId == R.id.middle) {
-            animView.setImageDrawable(new SnowDrawable(SnowDrawable.TYPE_MIDDLE));
+            animView.setImageDrawable(new SnowDrawable(getContext(), SnowDrawable.TYPE_MIDDLE, false));
         }else if (checkedId == R.id.light) {
-            animView.setImageDrawable(new SnowDrawable(SnowDrawable.TYPE_LIGHT));
+            animView.setImageDrawable(new SnowDrawable(getContext(), SnowDrawable.TYPE_LIGHT, false));
         } else if(checkedId == R.id.with_rain){
-            animView.setImageDrawable(new SnowDrawable(SnowDrawable.TYPE_WITH_RAIN));
+            animView.setImageDrawable(new SnowDrawable(getContext(), SnowDrawable.TYPE_WITH_RAIN, false));
         }
     }
 }

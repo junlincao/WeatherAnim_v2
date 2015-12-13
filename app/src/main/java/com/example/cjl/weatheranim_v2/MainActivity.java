@@ -87,6 +87,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.snow:
                 changeFragment(SnowFragment.class);
                 break;
+            case R.id.fog:
+                changeFragment(FogFragment.class);
+                break;
             default:
                 Toast.makeText(this, "实现中...", Toast.LENGTH_SHORT).show();
                 break;

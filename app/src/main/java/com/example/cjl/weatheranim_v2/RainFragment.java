@@ -36,13 +36,15 @@ public class RainFragment extends Fragment implements RadioGroup.OnCheckedChange
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.storm) {
-            animView.setImageDrawable(new RainDrawable(RainDrawable.TYPE_STORM));
+            animView.setImageDrawable(new RainDrawable(getContext(), RainDrawable.TYPE_STORM, false));
         } else if (checkedId == R.id.heavy) {
-            animView.setImageDrawable(new RainDrawable(RainDrawable.TYPE_HEAVY));
+            animView.setImageDrawable(new RainDrawable(getContext(), RainDrawable.TYPE_HEAVY, false));
         } else if (checkedId == R.id.middle) {
-            animView.setImageDrawable(new RainDrawable(RainDrawable.TYPE_MIDDLE));
+            animView.setImageDrawable(new RainDrawable(getContext(), RainDrawable.TYPE_MIDDLE, false));
         } else if (checkedId == R.id.light) {
-            animView.setImageDrawable(new RainDrawable(RainDrawable.TYPE_LIGHT));
+            animView.setImageDrawable(new RainDrawable(getContext(), RainDrawable.TYPE_LIGHT, false));
+        } else if(checkedId == R.id.thunder){
+            animView.setImageDrawable(new RainDrawable(getContext(), RainDrawable.TYPE_THUNDER, false));
         }
     }
 }

@@ -6,8 +6,8 @@
     <com.mlog.weather.anim.WeatherAnimView
         android:id="@+id/weather_img"
         android:layout_width="match_parent"
-        android:background="#aa000000"
-        android:layout_height="400dp" />
+        android:layout_height="400dp"
+        android:background="#aa000000" />
 
 
     <RadioGroup
@@ -22,7 +22,6 @@
             android:id="@+id/storm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="暴雨" />
 
         <RadioButton
@@ -30,21 +29,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:layout_marginLeft="20dp"
             android:text="大雨" />
 
         <RadioButton
             android:id="@+id/middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:text="中雨" />
 
         <RadioButton
             android:id="@+id/light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:text="小雨" />
+
+        <RadioButton
+            android:id="@+id/thunder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雷阵雨" />
     </RadioGroup>
 </RelativeLayout>

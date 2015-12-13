@@ -12,6 +12,7 @@ import com.mlog.weather.anim.IWeatherItem;
 import com.mlog.weather.anim.IWeatherRandomItem;
 import com.mlog.weather.anim.WeatherDrawable;
 import com.mlog.weather.anim.v2.weatherItem.Moon;
+import com.mlog.weather.anim.v2.weatherItem.MountainBg;
 import com.mlog.weather.anim.v2.weatherItem.Star;
 
 /**
@@ -23,13 +24,20 @@ import com.mlog.weather.anim.v2.weatherItem.Star;
 public class MoonDrawable extends WeatherDrawable {
 
     Drawable mMoonDrawable;
+    Drawable mountain;
 
     public MoonDrawable(Context context) {
         mMoonDrawable = context.getResources().getDrawable(R.drawable.moon);
+        mountain = context.getResources().getDrawable(R.drawable.bg01n);
     }
 
     @Override
     protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
+        MountainBg mountainBg = new MountainBg(mountain);
+        mountainBg.setBounds(rect.left, rect.top, rect.right, rect.bottom);
+        weatherItems.add(mountainBg);
+
+
         Moon moon = new Moon(mMoonDrawable);
 
         int hmw = (int) (203f * rect.width() / 482 / 2);

@@ -38,7 +38,7 @@ public class SnowDrawable extends WeatherDrawable {
     public static final int TYPE_WITH_RAIN = 5;
 
     // TYPE对应的出现间隔时间
-    static final int[] SNOW_INTERVAL = new int[]{50, 50, 100, 150, 100, 100};
+    static final int[] SNOW_INTERVAL = new int[]{100, 100, 150, 200, 150, 150};
 
     @SnowType
     private int mSnowType = TYPE_MIDDLE;
@@ -60,6 +60,7 @@ public class SnowDrawable extends WeatherDrawable {
 
     @Override
     protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
+        final int mountainGroundH = (int) (50f / 339 * mountain.getIntrinsicHeight() * rect.width() / mountain.getIntrinsicWidth());
 
         final int type1W = (int) (9f * rect.width() / 640);
         final int type2W = (int) (5f * rect.width() / 640);
@@ -76,7 +77,7 @@ public class SnowDrawable extends WeatherDrawable {
             public IWeatherItem getRandomWeatherItem() {
                 Snow snow = new Snow(3000);
                 int l = random.nextInt(rect.width() - type1W);
-                snow.setBounds(l, rect.top, l + type1W, rect.bottom);
+                snow.setBounds(l, rect.top, l + type1W, rect.bottom - mountainGroundH);
 
                 return snow;
             }
@@ -86,14 +87,14 @@ public class SnowDrawable extends WeatherDrawable {
         randomItems.add(new IWeatherRandomItem() {
             @Override
             public int getInterval() {
-                return SNOW_INTERVAL[mSnowType];
+                return SNOW_INTERVAL[mSnowType] * 2;
             }
 
             @Override
             public IWeatherItem getRandomWeatherItem() {
                 Snow snow = new Snow(5000);
                 int l = random.nextInt(rect.width() - type2W);
-                snow.setBounds(l, rect.top, l + type2W, rect.bottom);
+                snow.setBounds(l, rect.top, l + type2W, rect.bottom - mountainGroundH);
                 return snow;
             }
         });
@@ -113,7 +114,7 @@ public class SnowDrawable extends WeatherDrawable {
                     Rain rain = new Rain();
                     int l = random.nextInt(rect.width() - 1);
                     rain.setXShift(0);
-                    rain.setBounds(l, rect.top, l + 1, rect.bottom);
+                    rain.setBounds(l, rect.top, l + 1, rect.bottom - mountainGroundH);
                     rain.setLen(minLen, maxLen);
                     return rain;
                 }

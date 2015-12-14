@@ -67,6 +67,10 @@ public class Light extends SimpleWeatherItem {
         final int defAlpha = (int) (255 * (mType == TYPE_BACKGROUND ? 1 : 0.4f));
         int t = (int) ((time - getStartTime()) % ANIM_DURATION);
         int alpha = (int) (defAlpha * mAlphaInt.getInterpolation(t * 1f / ANIM_DURATION));
+
+        canvas.save();
+        canvas.clipRect(mBounds);
         canvas.drawColor(Color.argb(alpha, 255, 255, 255));
+        canvas.restore();
     }
 }

@@ -19,9 +19,11 @@ import java.util.List;
 public class FogDrawable extends WeatherDrawable {
 
     private Drawable mountain;
+    private Drawable mWindow;
 
     public FogDrawable(Context context) {
         mountain = context.getResources().getDrawable(R.drawable.v2_anim_bg05);
+        mWindow = context.getResources().getDrawable(R.drawable.v2_anim_fog_window);
     }
 
     @Override
@@ -30,7 +32,8 @@ public class FogDrawable extends WeatherDrawable {
         mountainBg.setBounds(rect.left, rect.top, rect.right, rect.bottom);
         weatherItems.add(mountainBg);
 
-        Fog fog = new Fog();
+        Fog fog = new Fog(mWindow);
+        fog.setBounds(rect.left, rect.top, rect.right, rect.bottom);
         weatherItems.add(fog);
     }
 }

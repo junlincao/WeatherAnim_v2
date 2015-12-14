@@ -25,6 +25,7 @@ public class MoonDrawable extends WeatherDrawable {
 
     Drawable mMoonDrawable;
     Drawable mountain;
+    int mountainH;
 
     public MoonDrawable(Context context) {
         mMoonDrawable = context.getResources().getDrawable(R.drawable.v2_anim_moon);
@@ -36,14 +37,15 @@ public class MoonDrawable extends WeatherDrawable {
         MountainBg mountainBg = new MountainBg(mountain);
         mountainBg.setBounds(rect.left, rect.top, rect.right, rect.bottom);
         weatherItems.add(mountainBg);
+        mountainH = (int) (mountain.getIntrinsicHeight() * 1f * rect.width() / mountain.getIntrinsicWidth());
 
-
+        float scale = rect.width() / 360;
         Moon moon = new Moon(mMoonDrawable);
-
-        int hmw = (int) (203f * rect.width() / 482 / 2);
-
-        moon.setBounds(rect.centerX() - hmw, rect.centerY() - hmw, rect.centerX() + hmw, rect.centerY() + hmw);
-        moon.setMoveDistance(hmw / 4f);
+        int l = (int) (105f * scale);
+        int top = (int) (68f * scale);
+        int w = (int) (154f * scale);
+        moon.setBounds(l, top, l + w, top + w);
+        moon.setMoveDistance(w / 9f);
         weatherItems.add(moon);
     }
 
@@ -64,7 +66,7 @@ public class MoonDrawable extends WeatherDrawable {
                 Star star = new Star();
                 int w = mMinStarWidth + random.nextInt(mMaxStarWidth - mMinStarWidth);
                 int left = rect.left + random.nextInt(rect.width() - w);
-                int top = rect.top + random.nextInt(rect.height() - w);
+                int top = rect.top + random.nextInt(rect.height() - mountainH - w);
                 star.setBounds(left, top, left + w, top + w);
 
                 return star;

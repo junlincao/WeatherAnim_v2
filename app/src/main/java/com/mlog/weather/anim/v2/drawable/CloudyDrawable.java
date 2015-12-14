@@ -8,15 +8,18 @@ import android.support.annotation.IntDef;
 
 import com.example.cjl.weatheranim_v2.R;
 import com.mlog.weather.anim.IWeatherItem;
+import com.mlog.weather.anim.IWeatherRandomItem;
 import com.mlog.weather.anim.WeatherDrawable;
 import com.mlog.weather.anim.v2.weatherItem.Cloud;
 import com.mlog.weather.anim.v2.weatherItem.Moon;
 import com.mlog.weather.anim.v2.weatherItem.MountainBg;
+import com.mlog.weather.anim.v2.weatherItem.Star;
 import com.mlog.weather.anim.v2.weatherItem.Sun;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 多云，阴天
@@ -38,6 +41,8 @@ public class CloudyDrawable extends WeatherDrawable {
 
     private Drawable cloud1;
     private Drawable cloud2;
+    private Drawable cloud3;
+    private Drawable cloud4;
 
     private Drawable sun1;
     private Drawable sun2;
@@ -49,6 +54,8 @@ public class CloudyDrawable extends WeatherDrawable {
     public CloudyDrawable(Context context, @CloudType int type) {
         cloud1 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_1);
         cloud2 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_2);
+        cloud3 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_3);
+        cloud4 = context.getResources().getDrawable(R.drawable.v2_anim_cloud_4);
         this.mType = type;
 
         if (mType == TYPE_DAY) {
@@ -78,7 +85,7 @@ public class CloudyDrawable extends WeatherDrawable {
             int l = (int) (50f * scale);
             int top = (int) (92f * scale);
             int h = (int) (32f * scale);
-            Cloud cloudTop = new Cloud(cloud1, cloud2);
+            Cloud cloudTop = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudTop.setCloudType(Cloud.TYPE_TOP);
             cloudTop.setBounds(l, top, l + w, top + h);
             cloudTop.setMoveDistance(20f * scale);
@@ -110,7 +117,7 @@ public class CloudyDrawable extends WeatherDrawable {
             l = (int) (171f * scale);
             top = (int) (128f * scale);
             h = (int) (40f * scale);
-            Cloud cloudMiddle = new Cloud(cloud1, cloud2);
+            Cloud cloudMiddle = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudMiddle.setCloudType(Cloud.TYPE_MIDDLE);
             cloudMiddle.setBounds(l, top, l + w, top + h);
             cloudMiddle.setMoveDistance(30f * scale);
@@ -122,7 +129,7 @@ public class CloudyDrawable extends WeatherDrawable {
             l = (int) (12f * scale);
             top = (int) (171f * scale);
             h = (int) (60f * scale);
-            Cloud cloudBottom = new Cloud(cloud1, cloud2);
+            Cloud cloudBottom = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudBottom.setCloudType(Cloud.TYPE_BOTTOM);
             cloudBottom.setMoveDistance(40 * scale);
             cloudBottom.setBounds(l, top, l + w, top + h);
@@ -137,7 +144,7 @@ public class CloudyDrawable extends WeatherDrawable {
             int l = (int) (30f * scale);
             int top = (int) (70f * scale);
             int h = (int) (32f * scale);
-            Cloud cloudTop = new Cloud(cloud1, cloud2);
+            Cloud cloudTop = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudTop.setCloudType(Cloud.TYPE_TOP);
             cloudTop.setBounds(l, top, l + w, top + h);
             cloudTop.setMoveDistance(20f * scale);
@@ -149,7 +156,7 @@ public class CloudyDrawable extends WeatherDrawable {
             l = (int) (146f * scale);
             top = (int) (108f * scale);
             h = (int) (40f * scale);
-            Cloud cloudMiddle = new Cloud(cloud1, cloud2);
+            Cloud cloudMiddle = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudMiddle.setCloudType(Cloud.TYPE_MIDDLE);
             cloudMiddle.setBounds(l, top, l + w, top + h);
             cloudMiddle.setMoveDistance(30f * scale);
@@ -161,12 +168,42 @@ public class CloudyDrawable extends WeatherDrawable {
             l = (int) (-10f * scale);
             top = (int) (169f * scale);
             h = (int) (60f * scale);
-            Cloud cloudBottom = new Cloud(cloud1, cloud2);
+            Cloud cloudBottom = new Cloud(cloud1, cloud2, cloud3, cloud4);
             cloudBottom.setCloudType(Cloud.TYPE_BOTTOM);
             cloudBottom.setMoveDistance(40 * scale);
             cloudBottom.setBounds(l, top, l + w, top + h);
             cloudBottom.setCloudColor(color);
             weatherItems.add(cloudBottom);
+        }
+    }
+
+
+    @Override
+    protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
+        if (mType == TYPE_NIGHT) {
+            final int mountainH = (int) (mountain.getIntrinsicHeight() * 1f * rect.width() / mountain.getIntrinsicWidth());
+            final int mMinStarWidth = (int) (0.5f / 250 * rect.width());
+            final int mMaxStarWidth = (int) (3f / 250 * rect.width());
+            final Random random = new Random();
+
+            IWeatherRandomItem iri = new IWeatherRandomItem() {
+                @Override
+                public int getInterval() {
+                    return 700;
+                }
+
+                @Override
+                public IWeatherItem getRandomWeatherItem() {
+                    Star star = new Star();
+                    int w = mMinStarWidth + random.nextInt(mMaxStarWidth - mMinStarWidth);
+                    int left = rect.left + random.nextInt(rect.width() - w);
+                    int top = rect.top + random.nextInt(rect.height() - mountainH - w);
+                    star.setBounds(left, top, left + w, top + w);
+
+                    return star;
+                }
+            };
+            randomItems.add(iri);
         }
     }
 

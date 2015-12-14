@@ -32,7 +32,7 @@ public class RainDrawable extends WeatherDrawable {
 
     public static final int TYPE_STORM = 0; // 暴雨
     public static final int TYPE_HEAVY = 1; // 大雨
-    public static final int TYPE_MIDDLE = 2; // 中雨
+    public static final int TYPE_MIDDLE = 2; // 中雨 & 阵雨
     public static final int TYPE_LIGHT = 3; // 小雨
     public static final int TYPE_THUNDER = 4; // 雷阵雨
     public static final int TYPE_THUNDER_HAIL = 5; // 雷阵雨伴有冰雹
@@ -44,17 +44,25 @@ public class RainDrawable extends WeatherDrawable {
     @RainType
     private int mRainType = TYPE_HEAVY;
     private Drawable mountain;
+    private int mountainGroundH;
+
+    private int mTitleHeight;
 
     public RainDrawable(Context context, @RainType int rainType, boolean isNight) {
         this.mRainType = rainType;
 
         mountain = context.getResources().getDrawable(isNight ? R.drawable.v2_anim_bg03n : R.drawable.v2_anim_bg03);
+
+        mTitleHeight = (int) (context.getResources().getDisplayMetrics().density * 70);
     }
 
     @Override
     protected void addWeatherItem(List<IWeatherItem> weatherItems, Rect rect) {
+        mountainGroundH = (int) (50f / 339 * mountain.getIntrinsicHeight() * rect.width() / mountain.getIntrinsicWidth());
+
         if (mRainType == TYPE_THUNDER || mRainType == TYPE_THUNDER_HAIL) {
             Light light = new Light(Light.TYPE_BACKGROUND);
+            light.setBounds(rect.left, rect.top, rect.right, rect.bottom - mountainGroundH);
             weatherItems.add(light);
         }
 
@@ -64,17 +72,24 @@ public class RainDrawable extends WeatherDrawable {
 
         if (mRainType == TYPE_THUNDER || mRainType == TYPE_THUNDER_HAIL) {
             Light light = new Light(Light.TYPE_FOREGROUND);
+            light.setBounds(rect.left, rect.top, rect.right, rect.bottom - mountainGroundH);
             weatherItems.add(light);
         }
     }
 
     @Override
     protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
-        final float scale = rect.width() / 640f;
+        final float scale = rect.width() / 360f;
         final int xShift = mRainType == TYPE_FROZEN ? 0 : (int) (200 * scale);
         final int rainWidth = rect.width() + xShift;
         final int minLen = (int) (50 * scale);
         final int maxLen = (int) (120 * scale);
+
+        int tempTop = rect.top;
+        if (mRainType == TYPE_THUNDER || mRainType == TYPE_THUNDER_HAIL) {
+            tempTop += mTitleHeight;
+        }
+        final int top = tempTop;
 
         final Random random = new Random();
         randomItems.add(new IWeatherRandomItem() {
@@ -88,7 +103,7 @@ public class RainDrawable extends WeatherDrawable {
                 Rain rain = new Rain();
                 int l = random.nextInt(rainWidth);
                 rain.setXShift(xShift);
-                rain.setBounds(l, rect.top, l + 1, rect.bottom);
+                rain.setBounds(l, top, l + 1, rect.bottom - mountainGroundH);
                 rain.setLen(minLen, maxLen);
                 return rain;
             }

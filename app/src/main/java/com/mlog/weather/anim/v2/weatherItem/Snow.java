@@ -12,7 +12,7 @@ import com.mlog.weather.anim.SimpleWeatherItem;
  */
 public class Snow extends SimpleWeatherItem {
 
-    static int ALPHA_CENTER = 200;
+    static int ALPHA_CENTER = 500;
 
     private int mAnimDuration = 3000;
 
@@ -40,6 +40,7 @@ public class Snow extends SimpleWeatherItem {
         int halfSize = mBounds.width() / 2;
 
         canvas.save();
+        canvas.clipRect(mBounds);
         canvas.rotate(45, centerX, centerY);
         canvas.drawRect(centerX - halfSize, centerY - halfSize, centerX + halfSize, centerY + halfSize, paint);
         canvas.restore();

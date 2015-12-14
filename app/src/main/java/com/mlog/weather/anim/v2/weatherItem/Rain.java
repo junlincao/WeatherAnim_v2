@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.view.animation.PathInterpolatorCompat;
+import android.util.Log;
 import android.view.animation.Interpolator;
 
 import com.mlog.weather.anim.SimpleWeatherItem;
@@ -17,12 +18,12 @@ public class Rain extends SimpleWeatherItem {
     static final int ANIM_DURATION = 1000;
 
     private static Interpolator mAlphaInt = new Interpolator() {
-        final int ALPHA_DURATION = 250;
+        final float ALPHA_PG = 0.5f;
 
         @Override
         public float getInterpolation(float input) {
-            if (input < ALPHA_DURATION * 1f / ANIM_DURATION) {
-                return 1 * input * ANIM_DURATION / ALPHA_DURATION;
+            if (input < ALPHA_PG) {
+                return input / ALPHA_PG;
             }
             return 1;
         }
@@ -56,18 +57,20 @@ public class Rain extends SimpleWeatherItem {
         }
         float pg = (time - getStartTime()) * 1f / ANIM_DURATION;
 
-        paint.setColor(Color.WHITE);
-        paint.setAlpha((int) (128 * mAlphaInt.getInterpolation(pg)));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(mBounds.width());
-
         if (mBounds.width() > 1) {
             paint.setStrokeCap(Paint.Cap.ROUND);
         }
+        paint.setColor(Color.WHITE);
+        paint.setAlpha((int) (128f * mAlphaInt.getInterpolation(pg)));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(mBounds.width());
 
         float ypg = mYInt.getInterpolation(pg);
         float len = (int) (mMinLen + (mMaxLen - mMinLen) * ypg);
         float ty = (int) (-mMinLen + (mBounds.height() + mMinLen) * ypg);
+
+        canvas.save();
+        canvas.clipRect(mBounds.left - mXShift, mBounds.top, mBounds.right, mBounds.bottom);
 
         if (mXShift == 0) {
             float x = mBounds.centerX();
@@ -79,5 +82,7 @@ public class Rain extends SimpleWeatherItem {
 
             canvas.drawLine(bx, by, tx, ty, paint);
         }
+
+        canvas.restore();
     }
 }

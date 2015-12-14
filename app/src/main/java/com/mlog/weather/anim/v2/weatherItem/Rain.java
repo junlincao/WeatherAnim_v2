@@ -67,7 +67,7 @@ public class Rain extends SimpleWeatherItem {
 
         float ypg = mYInt.getInterpolation(pg);
         float len = (int) (mMinLen + (mMaxLen - mMinLen) * ypg);
-        float ty = (int) (-mMinLen + (mBounds.height() + mMinLen) * ypg);
+        float ty = (int) (mBounds.top - mMinLen + (mBounds.height() + mMinLen) * ypg);
 
         canvas.save();
         canvas.clipRect(mBounds.left - mXShift, mBounds.top, mBounds.right, mBounds.bottom);

@@ -81,6 +81,7 @@ public class RainDrawable extends WeatherDrawable {
     protected void addRandomItem(List<IWeatherRandomItem> randomItems, final Rect rect) {
         final float scale = rect.width() / 360f;
         final int xShift = mRainType == TYPE_FROZEN ? 0 : (int) (200 * scale);
+        final double xShiftAngle = mRainType == TYPE_FROZEN ? 90 : 65;
         final int rainWidth = rect.width() + xShift;
         final int minLen = (int) (50 * scale);
         final int maxLen = (int) (120 * scale);
@@ -102,12 +103,11 @@ public class RainDrawable extends WeatherDrawable {
             public IWeatherItem getRandomWeatherItem() {
                 Rain rain = new Rain();
                 int l = random.nextInt(rainWidth);
-                rain.setXShift(xShift);
-                rain.setBounds(l, top, l + 1, rect.bottom - mountainGroundH);
                 rain.setLen(minLen, maxLen);
+                rain.setShiftAngle(xShiftAngle);
+                rain.setBounds(l, top, l + 1, rect.bottom - mountainGroundH);
                 return rain;
             }
         });
-
     }
 }

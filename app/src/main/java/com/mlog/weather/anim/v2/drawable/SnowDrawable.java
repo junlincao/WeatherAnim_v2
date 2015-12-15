@@ -113,7 +113,7 @@ public class SnowDrawable extends WeatherDrawable {
                 public IWeatherItem getRandomWeatherItem() {
                     Rain rain = new Rain();
                     int l = random.nextInt(rect.width() - 1);
-                    rain.setXShift(0);
+                    rain.setShiftAngle(90);
                     rain.setBounds(l, rect.top, l + 1, rect.bottom - mountainGroundH);
                     rain.setLen(minLen, maxLen);
                     return rain;

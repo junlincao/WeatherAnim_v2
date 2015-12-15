@@ -33,10 +33,17 @@ public class Rain extends SimpleWeatherItem {
 
     private int mMinLen;
     private int mMaxLen;
-    private int mXShift;
+    private double angled = 65;
+    private double angle = Math.toRadians(65);
 
-    public void setXShift(int xShift) {
-        this.mXShift = xShift;
+    /**
+     * 偏移角度 （雨线与X轴夹角）
+     *
+     * @param angle 偏移角度
+     */
+    public void setShiftAngle(double angle) {
+        this.angled = angle;
+        this.angle = Math.toRadians(angle);
     }
 
     public void setLen(int minLen, int maxLen) {
@@ -44,10 +51,6 @@ public class Rain extends SimpleWeatherItem {
         this.mMaxLen = maxLen;
     }
 
-    @Override
-    public void setBounds(int left, int top, int right, int bottom) {
-        super.setBounds(left, top, right, bottom);
-    }
 
     @Override
     public void onDraw(Canvas canvas, Paint paint, long time) {
@@ -70,16 +73,18 @@ public class Rain extends SimpleWeatherItem {
         float ty = (int) (mBounds.top - mMinLen + (mBounds.height() + mMinLen) * ypg);
 
         canvas.save();
-        canvas.clipRect(mBounds.left - mXShift, mBounds.top, mBounds.right, mBounds.bottom);
+        canvas.clipRect(0, mBounds.top, mBounds.right, mBounds.bottom);
 
-        if (mXShift == 0) {
+        if (angled == 90) {
             float x = mBounds.centerX();
             canvas.drawLine(x, ty, x, ty + len, paint);
         } else {
-            float tx = (int) (mBounds.left - mXShift * ypg);
-            float bx = (float) (tx - len * mXShift / Math.sqrt(mXShift * mXShift + mBounds.height() * mBounds.height()));
-            float by = (float) (ty + len * mBounds.height() / Math.sqrt(mXShift * mXShift + mBounds.height() * mBounds.height()));
+            float tx = (float) (mBounds.left - (ty - mBounds.top + mMinLen) / Math.tan(angle));
 
+            float by = (float) (len * Math.sin(angle) + ty);
+            float bx = (float) (tx - len * Math.cos(angle));
+
+//            Log.d("---", String.format("tx=%f, bx=%f, ty=%f, by=%f", tx, bx, ty, by));
             canvas.drawLine(bx, by, tx, ty, paint);
         }
 
